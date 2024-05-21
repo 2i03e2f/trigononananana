@@ -8,7 +8,6 @@
 
 
 
-import turtle
 from fractions import Fraction
 import re
 import math
@@ -47,7 +46,13 @@ for i,v in enumerate(plus):
         dv=True
 if not dv:
     for i,v in enumerate(plus):
-            l.append(v.replace('*',''))
+            if (v.find('*') != -1):
+                plus[i]=re.split("\\*", v)
+                for i2,v2 in enumerate(plus):
+                  if v2=='':
+                    l.append(v.replace('*',''))
+                  else:
+                    l.append(v)
 else:
     for i,v in enumerate(plus):
         if (v.find('/') != -1):
@@ -110,8 +115,6 @@ for n,w in enumerate(l):
     if (w.find('/') != -1):
         de=abs(eval(w))
         underni=True
-    else:
-        de=eval(w)
     if n!=0:
         c+='+'+w
     else:
@@ -153,6 +156,10 @@ except:
     tann='not defined'
 cycle=int(dew/360)
 subde=dew-360*cycle
+try:
+    relde= str(de)
+except:
+    relde= str(dew)
 print('''
     Quarter : {q}
     deg (In Quarter) : {de} deg
@@ -161,7 +168,7 @@ print('''
     (x,y) : ({x},{y})
     sin : {sinn} | cos : {coss} | tan : {tann}
     '''.format(q=str(q),
-               de=str(de),
+               de=relde,
                dew=str(dew),
                x=x,y=y,coss=coss,sinn=sinn,tann=tann,
                cy=str(cycle),
